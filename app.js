@@ -1,14 +1,23 @@
-const http = require("http");
-
-const hostname = "127.0.0.1";
+const express = require("express");
+const app = express();
 const port = 3000;
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader("Content-Type", "text/plain");
-  res.end("Hello World");
+app.get("/", (req, res) => res.send("Hello World"));
+
+app.get("/api/v1/todos", (req, res) => {
+  res.send("GET todos");
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+app.post("/api/v1/todos", (req, res) => {
+  res.send("POST todos");
 });
+
+app.put("/api/v1/todos/:id", (req, res) => {
+  res.send("PUT todos");
+});
+
+app.delete("/api/v1/todos/:id", (req, res) => {
+  res.send("DELETE todo " + req.params.id);
+});
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
