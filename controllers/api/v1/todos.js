@@ -8,12 +8,15 @@ const todoSchema = new Schema({
 const Todo = mongoose.model("Todo", todoSchema);
 
 const getAll = (req, res) => {
-  /* res.send("GET todos"); */
-  res.json({
-    status: "succes",
-    data: {
-      todos: [],
-    },
+  Todo.find({ user: "Griet" }, (err, docs) => {
+    if (!err) {
+      res.json({
+        status: "succes",
+        data: {
+          todos: docs,
+        },
+      });
+    }
   });
 };
 
